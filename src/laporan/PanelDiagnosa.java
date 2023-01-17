@@ -38,7 +38,7 @@ public class PanelDiagnosa extends widget.panelisi {
     private ResultSet rs;
     private int jml=0,i=0,index=0;
     private String[] kode,nama,ciripny,keterangan,kategori,cirium,kode2,panjang,pendek;
-    private boolean[] pilih,pilih2;
+    private boolean[] pilih;
     public String norawat="",status="",norm="",tanggal1="",tanggal2="",keyword="";
     /**
      * Creates new form panelDiagnosa
@@ -300,7 +300,7 @@ public class PanelDiagnosa extends widget.panelisi {
         tbTindakanPasien = new widget.Table();
 
         MnStatusBaru.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnStatusBaru.setForeground(new java.awt.Color(50,50,50));
+        MnStatusBaru.setForeground(new java.awt.Color(50, 50, 50));
         MnStatusBaru.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         MnStatusBaru.setText("Status Penyakit Baru");
         MnStatusBaru.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -314,7 +314,7 @@ public class PanelDiagnosa extends widget.panelisi {
         jPopupMenu1.add(MnStatusBaru);
 
         MnStatusLama.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnStatusLama.setForeground(new java.awt.Color(50,50,50));
+        MnStatusLama.setForeground(new java.awt.Color(50, 50, 50));
         MnStatusLama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         MnStatusLama.setText("Status Penyakit Lama");
         MnStatusLama.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -331,7 +331,7 @@ public class PanelDiagnosa extends widget.panelisi {
         setLayout(new java.awt.BorderLayout(1, 1));
 
         TabRawat.setBackground(new java.awt.Color(255, 255, 253));
-        TabRawat.setForeground(new java.awt.Color(50,50,50));
+        TabRawat.setForeground(new java.awt.Color(50, 50, 50));
         TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRawat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -343,7 +343,7 @@ public class PanelDiagnosa extends widget.panelisi {
         ScrollInput.setOpaque(true);
 
         FormData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        FormData.setPreferredSize(new java.awt.Dimension(865, 217));
+        FormData.setPreferredSize(new java.awt.Dimension(865, 417));
         FormData.setLayout(null);
 
         jLabel13.setText("Diagnosa :");
@@ -490,7 +490,7 @@ public class PanelDiagnosa extends widget.panelisi {
         DlgPenyakit tariflab=new DlgPenyakit(null,false);
         tariflab.emptTeks();
         tariflab.isCek();
-        tariflab.setSize(this.getWidth(),this.getHeight());
+        tariflab.setSize(this.getWidth(),this.getHeight()+100);
         tariflab.setLocationRelativeTo(this);
         tariflab.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
@@ -513,7 +513,7 @@ public class PanelDiagnosa extends widget.panelisi {
         DlgICD9 tariflab=new DlgICD9(null,false);
         tariflab.emptTeks();
         tariflab.isCek();
-        tariflab.setSize(this.getWidth(),this.getHeight()-20);
+        tariflab.setSize(this.getWidth(),this.getHeight()+100);
         tariflab.setLocationRelativeTo(this);
         tariflab.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
@@ -890,6 +890,7 @@ public class PanelDiagnosa extends widget.panelisi {
     public void simpan(){
         try {
             koneksi.setAutoCommit(false);
+            index=1;
             for(i=0;i<tbDiagnosa.getRowCount();i++){ 
                 if(tbDiagnosa.getValueAt(i,0).toString().equals("true")){
                     if(Sequel.cariInteger(
@@ -907,7 +908,61 @@ public class PanelDiagnosa extends widget.panelisi {
                             norawat,tbDiagnosa.getValueAt(i,1).toString(),status,
                             Sequel.cariIsi("select ifnull(MAX(prioritas)+1,1) from diagnosa_pasien where no_rawat=? and status='"+status+"'",norawat),"Baru"
                         });
-                    }                            
+                    }  
+                    
+                    if(index==1){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_utama=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_utama=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }   
+                    }else if(index==2){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_sekunder=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }else if(index==3){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder2=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_sekunder2=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }else if(index==4){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder3=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_sekunder3=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }   
+                    }else if(index==5){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder4=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_sekunder4=?",2,new String[]{
+                                tbDiagnosa.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }
+                        
+                    index++;
                 }                    
             }
             koneksi.setAutoCommit(true);  
@@ -920,11 +975,56 @@ public class PanelDiagnosa extends widget.panelisi {
 
         try {
             koneksi.setAutoCommit(false);
+            index=1;
             for(i=0;i<tbProsedur.getRowCount();i++){ 
                 if(tbProsedur.getValueAt(i,0).toString().equals("true")){
                     Sequel.menyimpan("prosedur_pasien","?,?,?,?","ICD 9",4,new String[]{
                         norawat,tbProsedur.getValueAt(i,1).toString(),status,Sequel.cariIsi("select ifnull(MAX(prioritas)+1,1) from prosedur_pasien where no_rawat=? and status='"+status+"'",norawat)
                     });
+                    
+                    if(index==1){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_utama=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_prosedur_utama=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }else if(index==2){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_prosedur_sekunder=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }else if(index==3){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder2=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_prosedur_sekunder2=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }else if(index==4){
+                        if(status.equals("Ralan")){
+                            Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder3=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }else if(status.equals("Ranap")){
+                            Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_prosedur_sekunder3=?",2,new String[]{
+                                tbProsedur.getValueAt(i,1).toString(),norawat
+                            });
+                        }
+                    }
+                        
+                    index++;
                 }                    
             }
             koneksi.setAutoCommit(true);  
@@ -1001,7 +1101,7 @@ public class PanelDiagnosa extends widget.panelisi {
                 param.put("propinsirs",akses.getpropinsirs());
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
                 Valid.MyReportqry("rptDiagnosa.jasper","report","::[ Data Diagnosa Pasien ]::",
                         "select reg_periksa.tgl_registrasi,diagnosa_pasien.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"+
                         "diagnosa_pasien.kd_penyakit,penyakit.nm_penyakit, diagnosa_pasien.status,diagnosa_pasien.status_penyakit "+
@@ -1029,7 +1129,7 @@ public class PanelDiagnosa extends widget.panelisi {
                 param.put("propinsirs",akses.getpropinsirs());
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
                 Valid.MyReportqry("rptProsedur.jasper","report","::[ Data Prosedur Tindakan Pasien ]::",
                         "select reg_periksa.tgl_registrasi,prosedur_pasien.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien,"+
                         "prosedur_pasien.kode,icd9.deskripsi_panjang, prosedur_pasien.status "+

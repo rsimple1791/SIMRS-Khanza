@@ -1,4 +1,8 @@
-
+<?php
+    if(strpos($_SERVER['REQUEST_URI'],"pages")){
+        exit(header("Location:../index.php"));
+    }
+?>
 
 <div id="post">
     <div align="center" class="link">
@@ -10,12 +14,12 @@
         <form name="frm_pelatihan" onsubmit="return validasiIsi();" method="post" action="" enctype=multipart/form-data>
             <?php
                 echo "";
-                $action   =isset($_GET['action'])?$_GET['action']:NULL;
-                $kode_evaluasi     =str_replace("_"," ",isset($_GET['kode_evaluasi'])?$_GET['kode_evaluasi']:NULL);
+                $action             = isset($_GET['action'])?$_GET['action']:NULL;
+                $kode_evaluasi      = validTeks(str_replace("_"," ",isset($_GET['kode_evaluasi'])?$_GET['kode_evaluasi']:NULL));
                 if($action == "TAMBAH"){
-                    $kode_evaluasi       = str_replace("_"," ",isset($_GET['kode_evaluasi']))?str_replace("_"," ",$_GET['kode_evaluasi']):NULL;
-                    $nama_evaluasi        = "";
-                    $indek      ="";
+                    $kode_evaluasi  = validTeks(str_replace("_"," ",isset($_GET['kode_evaluasi']))?str_replace("_"," ",$_GET['kode_evaluasi']):NULL);
+                    $nama_evaluasi  = "";
+                    $indek          = "";
                 }else if($action == "UBAH"){
                     $_sql           = "SELECT * FROM evaluasi_kinerja WHERE kode_evaluasi='$kode_evaluasi'";
                     $hasil          = bukaquery($_sql);
@@ -29,19 +33,19 @@
             <table width="100%" align="center">
                 <tr class="head">
                     <td width="31%" >Kode</td><td width="">:</td>
-                    <td width="67%"><input name="kode_evaluasi" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi1'));" type=text id="TxtIsi1" class="inputbox" value="<?php echo $kode_evaluasi;?>" size="10" maxlength="3">
+                    <td width="67%"><input name="kode_evaluasi" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi1'));" type=text id="TxtIsi1" class="inputbox" value="<?php echo $kode_evaluasi;?>" size="10" maxlength="3" pattern="[a-zA-Z0-9, ./@_]{1,3}" title=" a-zA-Z0-9, ./@_ (Maksimal 3 karakter)" autocomplete="off" autofocus>
                     <span id="MsgIsi1" style="color:#CC0000; font-size:10px;"></span>
                     </td>
                 </tr>
                 <tr class="head">
                     <td width="31%" >Evaluasi Kinerja</td><td width="">:</td>
-                    <td width="67%"><input name="nama_evaluasi" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi2'));" type=text id="TxtIsi2" class="inputbox" value="<?php echo $nama_evaluasi;?>" size="40" maxlength="100" />
+                    <td width="67%"><input name="nama_evaluasi" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi2'));" type=text id="TxtIsi2" class="inputbox" value="<?php echo $nama_evaluasi;?>" size="40" maxlength="100" pattern="[a-zA-Z0-9, ./@_]{1,100}" title=" a-zA-Z0-9, ./@_ (Maksimal 100 karakter)" autocomplete="off"/>
                     <span id="MsgIsi2" style="color:#CC0000; font-size:10px;"></span>
                     </td>
                 </tr>
                 <tr class="head">
                     <td width="31%" >Index</td><td width="">:</td>
-                    <td width="67%"><input name="indek" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi3'));" type=text id="TxtIsi3" class="inputbox" value="<?php echo $indek;?>" size="10" maxlength="4" />
+                    <td width="67%"><input name="indek" class="text" onkeydown="setDefault(this, document.getElementById('MsgIsi3'));" type=text id="TxtIsi3" class="inputbox" value="<?php echo $indek;?>" size="10" maxlength="4" pattern="[0-9-]{1,4}" title=" 0-9- (Maksimal 4 karakter)" autocomplete="off"/>
                     <span id="MsgIsi3" style="color:#CC0000; font-size:10px;"></span>
                     </td>
                 </tr>
@@ -51,9 +55,11 @@
                 $BtnSimpan=isset($_POST['BtnSimpan'])?$_POST['BtnSimpan']:NULL;
                 if (isset($BtnSimpan)) {
                     $kode_evaluasi    = trim($_POST['kode_evaluasi']);
+                    $kode_evaluasi    = validTeks($kode_evaluasi);
                     $nama_evaluasi    = trim($_POST['nama_evaluasi']);
-                    $indek   = trim($_POST['indek']);
-                    if ((!empty($kode_evaluasi))&&(!empty($nama_evaluasi))&&(!empty($indek))) {
+                    $nama_evaluasi    = validTeks($nama_evaluasi);
+                    $indek            = validangka(trim($_POST['indek']));
+                    if ((isset($kode_evaluasi))&&(isset($nama_evaluasi))&&(isset($indek))) {
                         switch($action) {
                             case "TAMBAH":
                                 Tambah(" evaluasi_kinerja "," '$kode_evaluasi','$nama_evaluasi','$indek' ", " evaluasi kinerja" );
@@ -64,7 +70,7 @@
                                 echo"<html><head><title></title><meta http-equiv='refresh' content='2;URL=?act=ListEvaluasiKinerja'></head><body></body></html>";
                                 break;
                         }
-                    }else if ((empty($kode_evaluasi))||(empty($nama_evaluasi))||(empty($indek))){
+                    }else{
                         echo 'Semua field harus isi..!!';
                     }
                 }

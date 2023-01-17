@@ -12,11 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Properties;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -58,7 +56,6 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
     private final JTextField txtURL = new JTextField();
     private final JProgressBar progressBar = new JProgressBar();
     private final JLabel lblStatus = new JLabel();
-    private final Properties prop = new Properties(); 
     private WebEngine engine;
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
@@ -78,10 +75,6 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
         setSize(885,674);
         
         initComponents2();
-        try {
-            prop.loadFromXML(new FileInputStream("setting/database.xml"));                                
-        } catch (Exception e) {
-        }
         
         TKd.setDocument(new batasInput((byte)20).getKata(TKd));
         TNm.setDocument(new batasInput((byte)50).getKata(TNm));
@@ -128,7 +121,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                     JenjangJabatan.setText(Sequel.cariIsi("select nama from jnj_jabatan where kode=?",pegawai.tbKamar.getValueAt(pegawai.tbKamar.getSelectedRow(),4).toString()));
  
                     try {
-                        loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/loginberkaspegawai.php?act=login&usere=admin&passwordte=akusayangsamakamu&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"");
+                        loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/"+"penggajian/loginberkaspegawai.php?act=login&usere="+koneksiDB.USERHYBRIDWEB()+"&passwordte="+koneksiDB.PASHYBRIDWEB()+"&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"");
                     } catch (Exception ex) {
                         System.out.println("Notifikasi : "+ex);
                     }
@@ -242,7 +235,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
         internalFrame2.add(PanelContent);        
     }
     
-     private void createScene() {        
+    private void createScene() {        
         Platform.runLater(new Runnable() {
 
             public void run() {
@@ -305,12 +298,12 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                     public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                         if (newState == Worker.State.SUCCEEDED) {
                             try {
-                                if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/","").contains("penggajian/pages")){
+                                if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("penggajian/pages")){
                                     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                                    Valid.panggilUrl(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/","").replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+"/"+prop.getProperty("HYBRIDWEB")+"/",""));
+                                    Valid.panggilUrl(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+"/"+koneksiDB.HYBRIDWEB()+"/",""));
                                     engine.executeScript("history.back()");
                                     setCursor(Cursor.getDefaultCursor());
-                                }else if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/","").contains("Keluar")){
+                                }else if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("Keluar")){
                                     dispose();    
                                 }
                             } catch (Exception ex) {
@@ -811,7 +804,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             case 0:
                 if(!TKd.getText().equals("")){
                     try {
-                        loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/index.php?act=DetailBerkasPegawai&action=TAMBAH&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"&keyword="+TCari.getText().replaceAll(" ","_"));
+                        loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/"+"penggajian/index.php?act=DetailBerkasPegawai&action=TAMBAH&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"&keyword="+TCari.getText().replaceAll(" ","_"));
                     } catch (Exception ex) {
                         System.out.println("Notifikasi : "+ex);
                     }
@@ -909,7 +902,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
     private void CmbKategoriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CmbKategoriItemStateChanged
         if(!TKd.getText().equals("")){
             try {
-                loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/loginberkaspegawai.php?act=login&usere=admin&passwordte=akusayangsamakamu&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"");
+                loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/"+"penggajian/loginberkaspegawai.php?act=login&usere="+koneksiDB.USERHYBRIDWEB()+"&passwordte="+koneksiDB.PASHYBRIDWEB()+"&nik="+TKd.getText().replaceAll(" ","_")+"&kategori="+CmbKategori.getSelectedItem().toString().replaceAll(" ","_")+"");
             } catch (Exception ex) {
                 System.out.println("Notifikasi : "+ex);
             }
@@ -1010,30 +1003,25 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             htmlContent = new StringBuilder();
             htmlContent.append(
                 "<tr class='head'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>NIP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='23%'>Nama Pegawai</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jenjang Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Departemen</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Bidang</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Status Karyawan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Pendidikan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%'>Mulai Kerja</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>NIP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='23%'>Nama Pegawai</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jenjang Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Departemen</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Bidang</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Status Karyawan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Pendidikan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%'>Mulai Kerja</td>"+
                 "</tr>"); 
             ps=koneksi.prepareStatement(
                  "select pegawai.nik,pegawai.nama,pegawai.jbtn,pegawai.jnj_jabatan,"+
                  "pegawai.departemen,pegawai.bidang,pegawai.stts_kerja,pegawai.pendidikan,"+
                  "pegawai.mulai_kerja from pegawai inner join berkas_pegawai inner join master_berkas_pegawai "+
                  "on pegawai.nik=berkas_pegawai.nik and berkas_pegawai.kode_berkas=master_berkas_pegawai.kode where "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.nik like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.nama like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.jbtn like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.jnj_jabatan like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.departemen like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.bidang like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.stts_kerja like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and pegawai.pendidikan like ?  "+
+                 "pegawai.stts_aktif<>'KELUAR' and master_berkas_pegawai.kategori='Tenaga klinis Dokter Umum' and "+
+                 "(pegawai.nik like ? or pegawai.nama like ? or pegawai.jbtn like ? or pegawai.jnj_jabatan like ? or "+
+                 "pegawai.departemen like ? or pegawai.bidang like ? or pegawai.stts_kerja like ? or pegawai.pendidikan like ?) "+
                  "group by pegawai.nik order by pegawai.jnj_jabatan,pegawai.departemen,pegawai.bidang,pegawai.nama");
             try {
                 ps.setString(1,"%"+TCari.getText().trim()+"%");
@@ -1085,7 +1073,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1133,30 +1121,25 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             htmlContent = new StringBuilder();
             htmlContent.append(
                 "<tr class='head'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>NIP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='23%'>Nama Pegawai</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jenjang Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Departemen</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Bidang</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Status Karyawan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Pendidikan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%'>Mulai Kerja</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>NIP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='23%'>Nama Pegawai</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jenjang Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Departemen</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Bidang</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Status Karyawan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Pendidikan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%'>Mulai Kerja</td>"+
                 "</tr>"); 
             ps=koneksi.prepareStatement(
                  "select pegawai.nik,pegawai.nama,pegawai.jbtn,pegawai.jnj_jabatan,"+
                  "pegawai.departemen,pegawai.bidang,pegawai.stts_kerja,pegawai.pendidikan,"+
                  "pegawai.mulai_kerja from pegawai inner join berkas_pegawai inner join master_berkas_pegawai "+
                  "on pegawai.nik=berkas_pegawai.nik and berkas_pegawai.kode_berkas=master_berkas_pegawai.kode where "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.nik like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.nama like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.jbtn like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.jnj_jabatan like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.departemen like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.bidang like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.stts_kerja like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and pegawai.pendidikan like ?  "+
+                 "pegawai.stts_aktif<>'KELUAR' and master_berkas_pegawai.kategori='Tenaga klinis Dokter Spesialis' and "+
+                 "(pegawai.nik like ? or pegawai.nama like ? or pegawai.jbtn like ? or pegawai.jnj_jabatan like ? or "+
+                 "pegawai.departemen like ? or pegawai.bidang like ? or pegawai.stts_kerja like ? or pegawai.pendidikan like ?) "+
                  "group by pegawai.nik order by pegawai.jnj_jabatan,pegawai.departemen,pegawai.bidang,pegawai.nama");
             try {
                 ps.setString(1,"%"+TCari.getText().trim()+"%");
@@ -1208,7 +1191,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1256,30 +1239,25 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             htmlContent = new StringBuilder();
             htmlContent.append(
                 "<tr class='head'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>NIP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='23%'>Nama Pegawai</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jenjang Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Departemen</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Bidang</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Status Karyawan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Pendidikan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%'>Mulai Kerja</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>NIP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='23%'>Nama Pegawai</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jenjang Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Departemen</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Bidang</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Status Karyawan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Pendidikan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%'>Mulai Kerja</td>"+
                 "</tr>"); 
             ps=koneksi.prepareStatement(
                  "select pegawai.nik,pegawai.nama,pegawai.jbtn,pegawai.jnj_jabatan,"+
                  "pegawai.departemen,pegawai.bidang,pegawai.stts_kerja,pegawai.pendidikan,"+
                  "pegawai.mulai_kerja from pegawai inner join berkas_pegawai inner join master_berkas_pegawai "+
                  "on pegawai.nik=berkas_pegawai.nik and berkas_pegawai.kode_berkas=master_berkas_pegawai.kode where "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.nik like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.nama like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.jbtn like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.jnj_jabatan like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.departemen like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.bidang like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.stts_kerja like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and pegawai.pendidikan like ?  "+
+                 "pegawai.stts_aktif<>'KELUAR' and master_berkas_pegawai.kategori='Tenaga klinis Perawat dan Bidan' and "+
+                 "(pegawai.nik like ? or pegawai.nama like ? or pegawai.jbtn like ? or pegawai.jnj_jabatan like ? or "+
+                 "pegawai.departemen like ? or pegawai.bidang like ? or pegawai.stts_kerja like ? or pegawai.pendidikan like ?)  "+
                  "group by pegawai.nik order by pegawai.jnj_jabatan,pegawai.departemen,pegawai.bidang,pegawai.nama");
             try {
                 ps.setString(1,"%"+TCari.getText().trim()+"%");
@@ -1331,7 +1309,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1379,30 +1357,25 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             htmlContent = new StringBuilder();
             htmlContent.append(
                 "<tr class='head'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>NIP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='23%'>Nama Pegawai</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jenjang Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Departemen</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Bidang</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Status Karyawan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Pendidikan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%'>Mulai Kerja</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>NIP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='23%'>Nama Pegawai</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jenjang Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Departemen</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Bidang</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Status Karyawan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Pendidikan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%'>Mulai Kerja</td>"+
                 "</tr>"); 
             ps=koneksi.prepareStatement(
                  "select pegawai.nik,pegawai.nama,pegawai.jbtn,pegawai.jnj_jabatan,"+
                  "pegawai.departemen,pegawai.bidang,pegawai.stts_kerja,pegawai.pendidikan,"+
                  "pegawai.mulai_kerja from pegawai inner join berkas_pegawai inner join master_berkas_pegawai "+
                  "on pegawai.nik=berkas_pegawai.nik and berkas_pegawai.kode_berkas=master_berkas_pegawai.kode where "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.nik like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.nama like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.jbtn like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.jnj_jabatan like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.departemen like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.bidang like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.stts_kerja like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and pegawai.pendidikan like ?  "+
+                 "pegawai.stts_aktif<>'KELUAR' and master_berkas_pegawai.kategori='Tenaga klinis Profesi Lain' and "+
+                 "(pegawai.nik like ? or pegawai.nama like ? or pegawai.jbtn like ? or pegawai.jnj_jabatan like ? or "+
+                 "pegawai.departemen like ? or pegawai.bidang like ? or pegawai.stts_kerja like ? or pegawai.pendidikan like ?)  "+
                  "group by pegawai.nik order by pegawai.jnj_jabatan,pegawai.departemen,pegawai.bidang,pegawai.nama");
             try {
                 ps.setString(1,"%"+TCari.getText().trim()+"%");
@@ -1454,7 +1427,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1502,30 +1475,25 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
             htmlContent = new StringBuilder();
             htmlContent.append(
                 "<tr class='head'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>NIP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='23%'>Nama Pegawai</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Jenjang Jabatan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Departemen</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Bidang</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='10%'>Status Karyawan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='11%'>Pendidikan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%'>Mulai Kerja</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>NIP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='23%'>Nama Pegawai</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Jenjang Jabatan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Departemen</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Bidang</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='10%'>Status Karyawan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='11%'>Pendidikan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%'>Mulai Kerja</td>"+
                 "</tr>"); 
             ps=koneksi.prepareStatement(
                  "select pegawai.nik,pegawai.nama,pegawai.jbtn,pegawai.jnj_jabatan,"+
                  "pegawai.departemen,pegawai.bidang,pegawai.stts_kerja,pegawai.pendidikan,"+
                  "pegawai.mulai_kerja from pegawai inner join berkas_pegawai inner join master_berkas_pegawai "+
                  "on pegawai.nik=berkas_pegawai.nik and berkas_pegawai.kode_berkas=master_berkas_pegawai.kode where "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.nik like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.nama like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.jbtn like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.jnj_jabatan like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.departemen like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.bidang like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.stts_kerja like ? or "+
-                 "master_berkas_pegawai.kategori='Tenaga Non Klinis' and pegawai.pendidikan like ?  "+
+                 "pegawai.stts_aktif<>'KELUAR' and master_berkas_pegawai.kategori='Tenaga Non Klinis' and "+
+                 "(pegawai.nik like ? or pegawai.nama like ? or pegawai.jbtn like ? or pegawai.jnj_jabatan like ? or "+
+                 "pegawai.departemen like ? or pegawai.bidang like ? or pegawai.stts_kerja like ? or pegawai.pendidikan like ?)  "+
                  "group by pegawai.nik order by pegawai.jnj_jabatan,pegawai.departemen,pegawai.bidang,pegawai.nama");
             try {
                 ps.setString(1,"%"+TCari.getText().trim()+"%");
@@ -1577,7 +1545,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }

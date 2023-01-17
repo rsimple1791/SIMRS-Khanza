@@ -47,7 +47,7 @@ public final class DlgKamar extends javax.swing.JDialog {
     private PreparedStatement ps;
     private ResultSet rs;
     private int i=0;
-    private String asalform="",ubah_status_kamar=Sequel.cariIsi("select ubah_status_kamar from set_jam_minimal");
+    private String asalform="",ubah_status_kamar=Sequel.cariIsi("select set_jam_minimal.ubah_status_kamar from set_jam_minimal");
 
     /** Creates new form DlgKamar
      * @param parent
@@ -227,7 +227,7 @@ public final class DlgKamar extends javax.swing.JDialog {
 
         MnRestore.setBackground(new java.awt.Color(255, 255, 254));
         MnRestore.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRestore.setForeground(new java.awt.Color(50,50,50));
+        MnRestore.setForeground(new java.awt.Color(50, 50, 50));
         MnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         MnRestore.setText("Data Sampah");
         MnRestore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -252,7 +252,7 @@ public final class DlgKamar extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Nomor Kamar ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50,50,50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Nomor Kamar ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -539,7 +539,7 @@ public final class DlgKamar extends javax.swing.JDialog {
 
         ChkCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/145.png"))); // NOI18N
         ChkCari.setMnemonic('I');
-        ChkCari.setText("  .: Pencarian Data");
+        ChkCari.setText(".: Pencarian Data");
         ChkCari.setToolTipText("Alt+I");
         ChkCari.setBorderPainted(true);
         ChkCari.setBorderPaintedFlat(true);
@@ -797,7 +797,7 @@ public final class DlgKamar extends javax.swing.JDialog {
                 param.put("propinsirs",akses.getpropinsirs());
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());   
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
             if((TCari.getText().trim().equals(""))&&(panelCari.isVisible()==false)){
                 Valid.MyReportqry("rptKamar.jasper","report","::[ Data Nomor Kamar ]::",
                         "select kd_kamar,kamar.kd_bangsal,bangsal.nm_bangsal, "+
@@ -1080,32 +1080,22 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
             ps=koneksi.prepareStatement("select kamar.kd_kamar,kamar.kd_bangsal,bangsal.nm_bangsal, "+
                        "kamar.kelas,kamar.trf_kamar,kamar.status from bangsal inner join kamar "+
                        "on kamar.kd_bangsal=bangsal.kd_bangsal where "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_kamar like ? or "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kd_bangsal like ? or "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and bangsal.nm_bangsal like ? or "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.kelas like ? or "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.trf_kamar like ? or "+
-                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? and kamar.status like ? "+
+                       "kamar.statusdata='1' and bangsal.nm_bangsal like ? and kamar.status like ? "+
+                       (TCari.getText().trim().equals("")?"":
+                       "and (kamar.kd_kamar like ? or kamar.kd_bangsal like ? or bangsal.nm_bangsal like ? or "+
+                       "kamar.kelas like ? or kamar.trf_kamar like ? or kamar.status like ? ) ")+
                        "order by bangsal.nm_bangsal");
             try {                
                 ps.setString(1,"%"+BangsalCari.getText().trim()+"%");
                 ps.setString(2,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(3,"%"+TCari.getText().trim()+"%");
-                ps.setString(4,"%"+BangsalCari.getText().trim()+"%");
-                ps.setString(5,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(6,"%"+TCari.getText().trim()+"%");
-                ps.setString(7,"%"+BangsalCari.getText().trim()+"%");
-                ps.setString(8,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(9,"%"+TCari.getText().trim()+"%");
-                ps.setString(10,"%"+BangsalCari.getText().trim()+"%");
-                ps.setString(11,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(12,"%"+TCari.getText().trim()+"%");
-                ps.setString(13,"%"+BangsalCari.getText().trim()+"%");
-                ps.setString(14,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(15,"%"+TCari.getText().trim()+"%");
-                ps.setString(16,"%"+BangsalCari.getText().trim()+"%");
-                ps.setString(17,"%"+CmbCrIsi.getSelectedItem().toString().trim()+"%");
-                ps.setString(18,"%"+TCari.getText().trim()+"%");
+                if(!TCari.getText().trim().equals("")){
+                    ps.setString(3,"%"+TCari.getText().trim()+"%");
+                    ps.setString(4,"%"+TCari.getText().trim()+"%");
+                    ps.setString(5,"%"+TCari.getText().trim()+"%");
+                    ps.setString(6,"%"+TCari.getText().trim()+"%");
+                    ps.setString(7,"%"+TCari.getText().trim()+"%");
+                    ps.setString(8,"%"+TCari.getText().trim()+"%");
+                }
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{false,rs.getString(1),
@@ -1187,14 +1177,14 @@ private void CmbCrIsiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
             MnRestore.setEnabled(true);
             BtnEdit.setEnabled(true);
         }else{
-            if(ubah_status_kamar.equals("No")){
-                BtnEdit.setEnabled(false);
-            }
+            if(akses.getkamar()==false){
+                if(ubah_status_kamar.equals("No")){
+                    BtnEdit.setEnabled(false);
+                }else{
+                    BtnEdit.setEnabled(true);
+                }
+            }   
             MnRestore.setEnabled(false);
         }
      }
-     
-    
-
- 
 }

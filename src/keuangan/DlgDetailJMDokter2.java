@@ -24,7 +24,7 @@ import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import simrskhanza.DlgPenanggungJawab;
+import simrskhanza.DlgCariCaraBayar;
 
 public class DlgDetailJMDokter2 extends javax.swing.JDialog {
     private final sekuel Sequel=new sekuel();
@@ -32,7 +32,7 @@ public class DlgDetailJMDokter2 extends javax.swing.JDialog {
     private final Jurnal jur=new Jurnal();
     private final Connection koneksi=koneksiDB.condb();
     private final Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-    private DlgPenanggungJawab carabayar=new DlgPenanggungJawab(null,false);
+    private DlgCariCaraBayar carabayar=new DlgCariCaraBayar(null,false);
     private int i=0,c=0;
     private String pilihancarabayar="",tglkeluar="",namaruangan="",dpjp="";    
     private PreparedStatement psreg,pskamar,pstindakan;
@@ -498,28 +498,28 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         htmlContent = new StringBuilder();
                         htmlContent.append(                             
                             "<tr class='isi'>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.Rawat</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Nomor RM</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Nama Pasien</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>DPJP</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Penindak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anestesi</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Kode</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='6%'>Kategori</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Nama Unit</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='9%'>Ruangan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='12%'>Nama Tindakan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Tarif</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Tgl.Transaksi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.Rawat</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Nomor RM</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Nama Pasien</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>DPJP</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Penindak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anestesi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Kode</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='6%'>Kategori</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Nama Unit</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='9%'>Ruangan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='12%'>Nama Tindakan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Tarif</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Tgl.Transaksi</td>"+
                             "</tr>"
                         ); 
                         for(i=0;i<tabMode.getRowCount();i++){  
@@ -612,28 +612,28 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         htmlContent.append(                             
                             "<tr class='isi'>"+
                                 "<tr class='isi'>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.Rawat</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Nomor RM</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Nama Pasien</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>DPJP</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Penindak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anestesi</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Kode</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='6%'>Kategori</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Nama Unit</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='9%'>Ruangan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='12%'>Nama Tindakan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Tarif</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Tgl.Transaksi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.Rawat</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Nomor RM</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Nama Pasien</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>DPJP</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Penindak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anestesi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Kode</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='6%'>Kategori</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Nama Unit</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='9%'>Ruangan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='12%'>Nama Tindakan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Tarif</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Tgl.Transaksi</td>"+
                             "</tr>"
                         ); 
                         for(i=0;i<tabMode.getRowCount();i++){  
@@ -725,28 +725,28 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         htmlContent = new StringBuilder();
                         htmlContent.append(                             
                             "<tr class='isi'>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.Rawat</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Nomor RM</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Nama Pasien</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>DPJP</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Penindak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anestesi</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Kode</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='6%'>Kategori</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Nama Unit</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='9%'>Ruangan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='12%'>Nama Tindakan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Tarif</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Tgl.Transaksi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.Rawat</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Nomor RM</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Nama Pasien</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>DPJP</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Penindak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anestesi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Kode</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='6%'>Kategori</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Nama Unit</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='9%'>Ruangan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='12%'>Nama Tindakan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Tarif</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Tgl.Transaksi</td>"+
                             "</tr>"
                         ); 
                         for(i=0;i<tabMode.getRowCount();i++){  
@@ -838,28 +838,28 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                         htmlContent = new StringBuilder();
                         htmlContent.append(                             
                             "<tr class='isi'>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>No.Rawat</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Nomor RM</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Nama Pasien</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>DPJP</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='8%'>Penindak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anestesi</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='7%'>Dokter Anak</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Kode</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='6%'>Kategori</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Nama Unit</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='9%'>Ruangan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='12%'>Nama Tindakan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Tarif</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Sarana</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total Jasa Pelayanan</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='3%'>Total</td>"+
-                                "<td valign='middle' bgcolor='#fafff5' align='center' width='2%'>Tgl.Transaksi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>No.Rawat</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Nomor RM</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Nama Pasien</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Masuk&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>&nbsp;&nbsp;Tgl.Keluar&nbsp;&nbsp;</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>DPJP</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='8%'>Penindak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anestesi</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='7%'>Dokter Anak</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Kode</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='6%'>Kategori</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Nama Unit</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='9%'>Ruangan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='12%'>Nama Tindakan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Frekuensi (Jumlah)</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Tarif</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Sarana</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total Jasa Pelayanan</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='3%'>Total</td>"+
+                                "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%'>Tgl.Transaksi</td>"+
                             "</tr>"
                         ); 
                         for(i=0;i<tabMode.getRowCount();i++){  
@@ -1266,7 +1266,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                 pskamar.close();
                             } 
                         }
-                        dpjp=Sequel.cariIsi("select kd_dokter from dpjp_ranap where no_rawat=?",rsreg.getString("no_rawat"));
+                        dpjp=Sequel.cariIsi("select dpjp_ranap.kd_dokter from dpjp_ranap where dpjp_ranap.no_rawat=?",rsreg.getString("no_rawat"));
                         if(dpjp.equals("")){
                             dpjp=rsreg.getString("nm_dokter");
                         }
@@ -1602,8 +1602,8 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                         rsreg.getString("no_rawat"),rsreg.getString("no_rkm_medis"),rsreg.getString("nm_pasien"),
                                         rsreg.getString("tgl_registrasi"),tglkeluar,
                                         dpjp,rstindakan.getString("nm_dokter"),
-                                        Sequel.cariIsi("select nm_dokter from dokter where kd_dokter=?",rstindakan.getString("dokter_anestesi")),
-                                        Sequel.cariIsi("select nm_dokter from dokter where kd_dokter=?",rstindakan.getString("dokter_anak")),
+                                        Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",rstindakan.getString("dokter_anestesi")),
+                                        Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",rstindakan.getString("dokter_anak")),
                                         rsreg.getString("kd_pj"),rsreg.getString("png_jawab"),rsreg.getString("nm_poli"),
                                         namaruangan,rstindakan.getString("nm_perawatan"),
                                         rstindakan.getString("jumlah"),rstindakan.getDouble("sarana"),
@@ -1618,8 +1618,8 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                         rsreg.getString("no_rawat"),rsreg.getString("no_rkm_medis"),rsreg.getString("nm_pasien"),
                                         rsreg.getString("tgl_registrasi"),tglkeluar,
                                         dpjp,rstindakan.getString("nm_dokter"),
-                                        Sequel.cariIsi("select nm_dokter from dokter where kd_dokter=?",rstindakan.getString("dokter_anestesi")),
-                                        Sequel.cariIsi("select nm_dokter from dokter where kd_dokter=?",rstindakan.getString("dokter_anak")),
+                                        Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",rstindakan.getString("dokter_anestesi")),
+                                        Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",rstindakan.getString("dokter_anak")),
                                         rsreg.getString("kd_pj"),rsreg.getString("png_jawab"),"Operasi",
                                         namaruangan,rstindakan.getString("nm_perawatan"),
                                         rstindakan.getString("jumlah"),rstindakan.getDouble("sarana"),

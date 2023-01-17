@@ -563,7 +563,7 @@ public final class DlgKonversi extends javax.swing.JDialog {
                 param.put("propinsirs",akses.getpropinsirs());
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());   
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
             Valid.MyReportqry("rptKonversi.jasper","report","::[ Konversi Satuan ]::","select nilai, kode_sat, nilai_konversi, sat_konversi  "+
                 " from konver_sat where  kode_sat like '%"+TCari.getText().trim()+"%' or "+
                 " sat_konversi like '%"+TCari.getText().trim()+"%' order by kode_sat",param);
@@ -639,11 +639,11 @@ public final class DlgKonversi extends javax.swing.JDialog {
     }//GEN-LAST:event_n2KeyPressed
 
     private void kdsat1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_kdsat1ItemStateChanged
-        Sequel.cariIsi("select satuan from kodesatuan where kode_sat=?", nmsat1,kdsat1.getSelectedItem().toString());
+        Sequel.cariIsi("select kodesatuan.satuan from kodesatuan where kodesatuan.kode_sat=?", nmsat1,kdsat1.getSelectedItem().toString());
     }//GEN-LAST:event_kdsat1ItemStateChanged
 
     private void kdsat2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_kdsat2ItemStateChanged
-       Sequel.cariIsi("select satuan from kodesatuan where kode_sat=?", nmsat2,kdsat2.getSelectedItem().toString());
+       Sequel.cariIsi("select kodesatuan.satuan from kodesatuan where kodesatuan.kode_sat=?", nmsat2,kdsat2.getSelectedItem().toString());
     }//GEN-LAST:event_kdsat2ItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

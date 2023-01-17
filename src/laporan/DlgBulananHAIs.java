@@ -21,7 +21,7 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import simrskhanza.DlgCariBangsal;
-import simrskhanza.DlgPenanggungJawab;
+import simrskhanza.DlgCariCaraBayar;
 
 public class DlgBulananHAIs extends javax.swing.JDialog {
     private sekuel Sequel=new sekuel();
@@ -29,7 +29,7 @@ public class DlgBulananHAIs extends javax.swing.JDialog {
     private Connection koneksi=koneksiDB.condb();
     private PreparedStatement ps;
     private ResultSet rs;
-    private DlgPenanggungJawab penjab=new DlgPenanggungJawab(null,false);
+    private DlgCariCaraBayar penjab=new DlgCariCaraBayar(null,false);
     private DlgCariBangsal bangsal=new DlgCariBangsal(null,false);
     private int i=0,deku=0,urine=0,sputum=0,darah=0,antibiotik=0,pasien=0,jmlpasien=0,ETT=0,CVL=0,IVL=0,UC=0,VAP=0,IAD=0,PLEB=0,
                 ISK=0,ILO=0,ANTIBIOTIK=0,jmlHAP,jmlTinea,jmlScabies,jmlETT,jmlCVL,jmlIVL,jmlUC,jmlVAP,jmlIAD,jmlPLEB,jmlISK,
@@ -508,31 +508,31 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
             htmlContent = new StringBuilder();
             htmlContent.append(                             
                 "<tr class='isi'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='2%' rowspan='2'>No.</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='6%' rowspan='2'>Tanggal</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%' rowspan='2'>Jml.Pasien</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='22%' colspan='4'>Hari Pemasangan</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='40%' colspan='8'>Infeksi</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='4%' rowspan='2'>Deku</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='17%' colspan='3'>Hasil Kultur</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center' width='5%' rowspan='2'>Antibiotik</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='2%' rowspan='2'>No.</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='6%' rowspan='2'>Tanggal</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%' rowspan='2'>Jml.Pasien</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='22%' colspan='4'>Hari Pemasangan</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='40%' colspan='8'>Infeksi</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='4%' rowspan='2'>Deku</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='17%' colspan='3'>Hasil Kultur</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center' width='5%' rowspan='2'>Antibiotik</td>"+
                 "</tr>"+
                 "<tr class='isi'>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>ETT</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>CVL</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>IVL</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>UC</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>VAP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>IAD</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>PLEB</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>ISK</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>ILO</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>HAP</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>Tinea</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>Scabies</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>Sputum</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>Darah</td>"+
-                    "<td valign='middle' bgcolor='#fafff5' align='center'>Urine</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>ETT</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>CVL</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>IVL</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>UC</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>VAP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>IAD</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Pleb</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>ISK</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>ILO</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>HAP</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Tinea</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Scabies</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Sputum</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Darah</td>"+
+                    "<td valign='middle' bgcolor='#FFFAF8' align='center'>Urine</td>"+
                 "</tr>"
             );     
             ps=koneksi.prepareStatement(

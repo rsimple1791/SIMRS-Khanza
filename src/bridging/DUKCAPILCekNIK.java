@@ -59,10 +59,10 @@ public class DUKCAPILCekNIK {
                             "\"password\": \""+koneksiDB.PASSDUKCAPIL()+"\"," +
                             "\"IP_USER\":\""+prop.getProperty("IPUSERDUKCAPIL")+"\"" +
                             "}"; 
-            //System.out.println("JSON dikirim : "+requestJson);
+            System.out.println("JSON dikirim : "+requestJson);
 	    requestEntity = new HttpEntity(requestJson,headers);	    
             stringbalik=rest.exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody();
-            //System.out.println("string balik : "+stringbalik);
+            System.out.println("string balik : "+stringbalik);
             root = mapper.readTree(stringbalik);
             nameNode = root.path("content");
             if(nameNode.isArray()){

@@ -281,7 +281,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
         ppLokasi.setBackground(new java.awt.Color(255, 255, 254));
         ppLokasi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppLokasi.setForeground(new java.awt.Color(50,50,50));
+        ppLokasi.setForeground(new java.awt.Color(50, 50, 50));
         ppLokasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Create-Ticket24.png"))); // NOI18N
         ppLokasi.setText("Tampilkan Per Lokasi");
         ppLokasi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -304,7 +304,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pemberian Obat Ke Pasien Per Tanggal ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50,50,50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pemberian Obat Ke Pasien Per Tanggal ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -325,17 +325,19 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
         panelBiasa1.setName("panelBiasa1"); // NOI18N
         panelBiasa1.setPreferredSize(new java.awt.Dimension(1023, 47));
-        panelBiasa1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 3, 10));
+        panelBiasa1.setLayout(null);
 
         label20.setText("Jenis :");
         label20.setName("label20"); // NOI18N
         label20.setPreferredSize(new java.awt.Dimension(40, 23));
         panelBiasa1.add(label20);
+        label20.setBounds(4, 11, 40, 23);
 
         nmjns.setEditable(false);
         nmjns.setName("nmjns"); // NOI18N
         nmjns.setPreferredSize(new java.awt.Dimension(205, 23));
         panelBiasa1.add(nmjns);
+        nmjns.setBounds(47, 11, 205, 23);
 
         BtnJenis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnJenis.setMnemonic('2');
@@ -348,16 +350,19 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
             }
         });
         panelBiasa1.add(BtnJenis);
+        BtnJenis.setBounds(255, 11, 28, 23);
 
         label22.setText("Kategori :");
         label22.setName("label22"); // NOI18N
         label22.setPreferredSize(new java.awt.Dimension(65, 23));
         panelBiasa1.add(label22);
+        label22.setBounds(286, 11, 65, 23);
 
         nmkategori.setEditable(false);
         nmkategori.setName("nmkategori"); // NOI18N
         nmkategori.setPreferredSize(new java.awt.Dimension(205, 23));
         panelBiasa1.add(nmkategori);
+        nmkategori.setBounds(354, 11, 205, 23);
 
         BtnKategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnKategori.setMnemonic('2');
@@ -370,16 +375,19 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
             }
         });
         panelBiasa1.add(BtnKategori);
+        BtnKategori.setBounds(562, 11, 28, 23);
 
         label23.setText("Golongan :");
         label23.setName("label23"); // NOI18N
         label23.setPreferredSize(new java.awt.Dimension(65, 23));
         panelBiasa1.add(label23);
+        label23.setBounds(593, 11, 65, 23);
 
         nmgolongan.setEditable(false);
         nmgolongan.setName("nmgolongan"); // NOI18N
         nmgolongan.setPreferredSize(new java.awt.Dimension(205, 23));
         panelBiasa1.add(nmgolongan);
+        nmgolongan.setBounds(661, 11, 205, 23);
 
         BtnGolongan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnGolongan.setMnemonic('2');
@@ -392,6 +400,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
             }
         });
         panelBiasa1.add(BtnGolongan);
+        BtnGolongan.setBounds(869, 11, 28, 23);
 
         internalFrame1.add(panelBiasa1, java.awt.BorderLayout.PAGE_START);
 
@@ -566,7 +575,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
     private void BtnJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJenisActionPerformed
         jenis.isCek();
-        jenis.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        jenis.setSize(internalFrame1.getWidth() -20, internalFrame1.getHeight() -20);
         jenis.setLocationRelativeTo(internalFrame1);
         jenis.setAlwaysOnTop(false);
         jenis.setVisible(true);
@@ -574,7 +583,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
     private void BtnKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKategoriActionPerformed
         kategori.isCek();
-        kategori.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        kategori.setSize(internalFrame1.getWidth() -20, internalFrame1.getHeight() -20);
         kategori.setLocationRelativeTo(internalFrame1);
         kategori.setAlwaysOnTop(false);
         kategori.setVisible(true);
@@ -582,7 +591,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
     private void BtnGolonganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGolonganActionPerformed
         golongan.isCek();
-        golongan.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        golongan.setSize(internalFrame1.getWidth() -20, internalFrame1.getHeight() -20);
         golongan.setLocationRelativeTo(internalFrame1);
         golongan.setAlwaysOnTop(false);
         golongan.setVisible(true);
@@ -606,10 +615,10 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
         }else if(tabMode.getRowCount()!=0){
             
-            Sequel.queryu("delete from temporary");
+            Sequel.queryu("delete from temporary where temp37='"+akses.getalamatip()+"'");
             int row=tabMode.getRowCount();
             for(int r=0;r<row;r++){  
-                Sequel.menyimpan("temporary","'0','"+
+                Sequel.menyimpan("temporary","'"+r+"','"+
                                 tabMode.getValueAt(r,0).toString()+"','"+
                                 tabMode.getValueAt(r,1).toString()+"','"+
                                 tabMode.getValueAt(r,4).toString()+"','"+
@@ -644,7 +653,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
                                 Valid.SetAngka3(Double.parseDouble(tabMode.getValueAt(r,33).toString()))+"','"+
                                 Valid.SetAngka3(Double.parseDouble(tabMode.getValueAt(r,34).toString()))+"','"+
                                 Valid.SetAngka3(Double.parseDouble(tabMode.getValueAt(r,35).toString()))+"','"+
-                                Valid.SetAngka3(Double.parseDouble(tabMode.getValueAt(r,36).toString()))+"','',''","Rekap Presensi"); 
+                                Valid.SetAngka3(Double.parseDouble(tabMode.getValueAt(r,36).toString()))+"','','"+akses.getalamatip()+"'","Rekap Presensi"); 
             }
             
             Map<String, Object> param = new HashMap<>();   
@@ -655,7 +664,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());   
                 param.put("periode","01 - 31 BULAN "+BlnCari.getSelectedItem()+" TAHUN "+ThnCari.getSelectedItem());   
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
                 param.put("jd1","("+konversi(Integer.parseInt(ThnCari.getSelectedItem().toString()),Integer.parseInt(BlnCari.getSelectedItem().toString()),1)+")");
                 param.put("jd2","("+konversi(Integer.parseInt(ThnCari.getSelectedItem().toString()),Integer.parseInt(BlnCari.getSelectedItem().toString()),2)+")");
                 param.put("jd3","("+konversi(Integer.parseInt(ThnCari.getSelectedItem().toString()),Integer.parseInt(BlnCari.getSelectedItem().toString()),3)+")");
@@ -688,10 +697,10 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
                 param.put("jd30","("+konversi(Integer.parseInt(ThnCari.getSelectedItem().toString()),Integer.parseInt(BlnCari.getSelectedItem().toString()),30)+")");
                 param.put("jd31","("+konversi(Integer.parseInt(ThnCari.getSelectedItem().toString()),Integer.parseInt(BlnCari.getSelectedItem().toString()),31)+")");
                 if(lokasi.equals("")){
-                    Valid.MyReport("rptObatPerTanggal.jasper","report","::[ Pemberian Obat Ke Pasien Per Tanggal ]::",param);            
+                    Valid.MyReportqry("rptObatPerTanggal.jasper","report","::[ Pemberian Obat Ke Pasien Per Tanggal ]::","select * from temporary where temporary.temp37='"+akses.getalamatip()+"' order by temporary.no",param);            
                 }else if(!lokasi.equals("")){
                     param.put("bangsal",lokasi);  
-                    Valid.MyReport("rptObatPerTanggal2.jasper","report","::[ Pemberian Obat Ke Pasien Per Tanggal ]::",param);            
+                    Valid.MyReportqry("rptObatPerTanggal2.jasper","report","::[ Pemberian Obat Ke Pasien Per Tanggal ]::","select * from temporary where temporary.temp37='"+akses.getalamatip()+"' order by temporary.no",param);            
                 }                                 
         }
         this.setCursor(Cursor.getDefaultCursor());
@@ -707,7 +716,7 @@ public class DlgObatPerTanggal extends javax.swing.JDialog {
 
     private void ppLokasiBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppLokasiBtnPrintActionPerformed
         bangsal.isCek();
-        bangsal.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        bangsal.setSize(internalFrame1.getWidth() -20, internalFrame1.getHeight() -20);
         bangsal.setLocationRelativeTo(internalFrame1);
         bangsal.setVisible(true);
     }//GEN-LAST:event_ppLokasiBtnPrintActionPerformed

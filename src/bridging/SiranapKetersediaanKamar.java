@@ -13,11 +13,17 @@ package bridging;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fungsi.WarnaTable;
+import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import fungsi.akses;
+import fungsi.batasInput;
+import fungsi.koneksiDB;
+import fungsi.sekuel;
+import fungsi.validasi;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -55,7 +61,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
     private DlgCariBangsal bangsal=new DlgCariBangsal(null,false);
     private final Properties prop = new Properties();
     private String requestXML,URL="",respon="",idrs="";
-    private SirsApi api=new SirsApi();
+    private ApiKemenkesSirs api=new ApiKemenkesSirs();
     private HttpHeaders headers;
     private HttpEntity requestEntity;
     private ObjectMapper mapper= new ObjectMapper();
@@ -247,7 +253,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
         ChkInput = new widget.CekBox();
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2019-04-30 16:26:33" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2022-11-07 11:44:39" }));
         Tanggal.setDisplayFormat("yyyy-MM-dd HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -262,7 +268,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Ketersediaan Kamar SIRANAP KEMENKES ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50,50,50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Ketersediaan Kamar SIRANAP KEMENKES ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -620,7 +626,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
         FormInput.add(TersediaWanita);
         TersediaWanita.setBounds(676, 72, 50, 23);
 
-        RuangSiranap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0000 Umum", "0001 Anak", "0002 Anak (Luka Bakar)", "0003 Penyakit Dalam", "0004 Kebidanan", "0005 Kandungan", "0006 Bedah", "0007 Kanker", "0008 Mata", "0009 THT", "0010 Paru", "0011 Jantung", "0012 Orthopedi", "0013 Kulit dan Kelamin", "0014 Saraf", "0015 Jiwa", "0016 Infeksi", "0017 Luka Bakar", "0018 NAPZA", "'0019 Isolasi Air Borne", "0020 Isolasi TB MDR", "0021 Kulit dan Kelamin", "0022 Isolasi Imunitas menurun", "0023 Isolasi Radioaktif", "0024 ICU/RICU", "0025 NICU", "0026 PICU", "0027 CVCU/ICCU", "0029 HCU", "0030 Kedokteran Nuklir" }));
+        RuangSiranap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0000 Umum", "0001 Anak", "0002 Anak (Luka Bakar)", "0003 Penyakit Dalam", "0004 Kebidanan", "0005 Kandungan", "0006 Bedah", "0007 Kanker", "0008 Mata", "0009 THT", "0010 Paru", "0011 Jantung", "0012 Orthopedi", "0013 Kulit dan Kelamin", "0014 Saraf", "0015 Jiwa", "0016 Infeksi", "0017 Luka Bakar", "0018 NAPZA", "0019 Isolasi Air Borne", "0020 Isolasi TB MDR", "0021 Kulit dan Kelamin", "0022 Isolasi Imunitas menurun", "0023 Isolasi Radioaktif", "0024 ICU/RICU", "0025 NICU", "0026 PICU", "0027 CVCU/ICCU", "0029 HCU", "0030 Kedokteran Nuklir" }));
         RuangSiranap.setName("RuangSiranap"); // NOI18N
         RuangSiranap.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -771,7 +777,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
                     headers.add("Content-Type","application/xml; charset=ISO-8859-1");
                     requestEntity = new HttpEntity(headers);
                     System.out.println(URL+"/sisrute/hapusdata/"+idrs+"/"+tbJnsPerawatan.getValueAt(i,2).toString().substring(0,4)+"/"+tbJnsPerawatan.getValueAt(i,1).toString().substring(0,4));
-                    requestXML=api.getRest().exchange(URL+"/sisrute/hapusdata/"+idrs+"/"+tbJnsPerawatan.getValueAt(i,2).toString().substring(0,4)+"/"+tbJnsPerawatan.getValueAt(i,1).toString().substring(0,4), HttpMethod.POST, requestEntity, String.class).getBody();
+                    requestXML=api.getRest().exchange(URL+"/sisrute/hapusdata/"+idrs+"/"+tbJnsPerawatan.getValueAt(i,1).toString().substring(0,4)+"/"+tbJnsPerawatan.getValueAt(i,2).toString().substring(0,4), HttpMethod.POST, requestEntity, String.class).getBody();
                     System.out.println(requestXML);
                     root = mapper.readTree(requestXML);
                     respon=root.path("deskripsi").asText();
@@ -933,7 +939,7 @@ public final class SiranapKetersediaanKamar extends javax.swing.JDialog {
                 param.put("propinsirs",akses.getpropinsirs());
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());   
-                param.put("logo",Sequel.cariGambar("select logo from setting")); 
+                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
                 param.put("parameter","%"+TCari.getText().trim()+"%");   
                 Valid.MyReport("rptKamarSiranap.jasper","report","::[ Data Ketersediaan Kamar Siranap ]::",param);            
         }
@@ -1185,14 +1191,14 @@ private void btnKamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void getData() {
        if(tbJnsPerawatan.getSelectedRow()!= -1){
-           KdKamar.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),2).toString());
-           NmKamar.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),3).toString());
-           Kelas.setSelectedItem(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),4).toString());
-           Kapasitas.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),5).toString());
-           Tersedia.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),6).toString());
-           TersediaMenunggu.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),7).toString());
-           TersediaPria.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),8).toString());
-           TersediaWanita.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),9).toString());
+           KdKamar.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),3).toString());
+           NmKamar.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),4).toString());
+           Kelas.setSelectedItem(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),5).toString());
+           Kapasitas.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),6).toString());
+           Tersedia.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),7).toString());
+           TersediaMenunggu.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),8).toString());
+           TersediaPria.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),9).toString());
+           TersediaWanita.setText(tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),10).toString());
        }
     }
 

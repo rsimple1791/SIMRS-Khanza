@@ -119,7 +119,7 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Grafik Peristiwa K3 Per Tanggal ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50,50,50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Grafik Peristiwa K3 Per Tanggal ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -133,7 +133,7 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
         panelGlass5.add(jLabel33);
 
         Tanggal1.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-06-2019" }));
+        Tanggal1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-08-2019" }));
         Tanggal1.setDisplayFormat("dd-MM-yyyy");
         Tanggal1.setName("Tanggal1"); // NOI18N
         Tanggal1.setOpaque(false);
@@ -147,7 +147,7 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
         panelGlass5.add(jLabel32);
 
         Tanggal2.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-06-2019" }));
+        Tanggal2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-08-2019" }));
         Tanggal2.setDisplayFormat("dd-MM-yyyy");
         Tanggal2.setName("Tanggal2"); // NOI18N
         Tanggal2.setOpaque(false);
@@ -261,7 +261,6 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
-        tbBangsal.setAutoCreateRowSorter(true);
         tbBangsal.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbBangsal.setName("tbBangsal"); // NOI18N
         Scroll.setViewportView(tbBangsal);
@@ -284,8 +283,8 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
     private void BtnPrint3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint3ActionPerformed
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
         try {                
-            rs = koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')) as jumlah "+
-                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')").executeQuery();
+            rs = koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')) as jumlah "+
+                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')").executeQuery();
             while(rs.next()) {
                 dcd.setValue(rs.getDouble(2),rs.getString(1)+"("+rs.getString(2)+")",rs.getString(1));
             }
@@ -320,9 +319,9 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
 
     private void BtnPrint4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint4ActionPerformed
        grafiksql2 kas=new grafiksql2("Grafik Peristiwa K3 Per Tanggal Periode "+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+" s.d. "+Valid.SetTgl(Tanggal2.getSelectedItem()+""),
-               "select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')) as jumlah from k3rs_peristiwa "+
+               "select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')) as jumlah from k3rs_peristiwa "+
                "where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' "+
-               "group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')","Tanggal");
+               "group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')","Tanggal");
        kas.setSize(Scroll.getWidth(),Scroll.getHeight());  
        kas.setModal(true);
        kas.setAlwaysOnTop(true);
@@ -337,8 +336,8 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
     private void BtnPrint5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint5ActionPerformed
         DefaultPieDataset dpd = new DefaultPieDataset();
         try {                
-            rs = koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')) as jumlah "+
-                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')").executeQuery();
+            rs = koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')) as jumlah "+
+                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')").executeQuery();
             while(rs.next()) {
                 dpd.setValue(rs.getString(1)+"("+rs.getString(2)+")",rs.getDouble(2));
             }
@@ -383,7 +382,7 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
             param.put("kontakrs",akses.getkontakrs());
             param.put("emailrs",akses.getemailrs());   
             param.put("periode","Periode "+Tanggal1.getSelectedItem()+" s.d. "+Tanggal2.getSelectedItem());  
-            param.put("logo",Sequel.cariGambar("select logo from setting"));  
+            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));  
             Sequel.queryu("truncate table temporary_grafik");
             for(int r=0;r<tabMode.getRowCount();r++){ 
                     Sequel.menyimpan("temporary_grafik","'0','"+
@@ -434,8 +433,8 @@ public class GrafikPeristiwaK3PerTanggal extends javax.swing.JDialog {
     private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
-            ps=koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')) as jumlah "+
-                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%y-%m-%d')");
+            ps=koneksi.prepareStatement("select DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d'),count(DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')) as jumlah "+
+                "from k3rs_peristiwa where tgl_pelaporan between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(k3rs_peristiwa.tgl_pelaporan, '%Y-%m-%d')");
             try {
                 rs=ps.executeQuery();
                 total=0;

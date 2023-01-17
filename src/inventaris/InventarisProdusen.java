@@ -623,7 +623,7 @@ public final class InventarisProdusen extends javax.swing.JDialog {
             param.put("propinsirs",akses.getpropinsirs());
             param.put("kontakrs",akses.getkontakrs());
             param.put("emailrs",akses.getemailrs());   
-            param.put("logo",Sequel.cariGambar("select logo from setting")); 
+            param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
             param.put("parameter","%"+TCari.getText()+"%"); 
                 Valid.MyReport("rptProdusen.jasper","report","::[ Data Produsen ]::",param);
         }
@@ -669,8 +669,7 @@ public final class InventarisProdusen extends javax.swing.JDialog {
 
     private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_SPACE){
-            tampil();
-            TCari.setText("");
+            BtnAllActionPerformed(null);
         }else{
             Valid.pindah(evt, BtnPrint,BtnKeluar);
         }
@@ -794,7 +793,7 @@ private void TAlamatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_T
     private widget.Table tbJnsPerawatan;
     // End of variables declaration//GEN-END:variables
 
-    public void tampil() {
+    private void tampil() {
         String sql="select inventaris_produsen.kode_produsen, inventaris_produsen.nama_produsen, inventaris_produsen.alamat_produsen, inventaris_produsen.no_telp,"+
                    "inventaris_produsen.email, inventaris_produsen.website_produsen from inventaris_produsen "+
                    "where inventaris_produsen.kode_produsen like '%"+TCari.getText().trim()+"%' "+

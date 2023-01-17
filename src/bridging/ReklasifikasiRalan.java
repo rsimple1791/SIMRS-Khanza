@@ -33,7 +33,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import keuangan.DlgBilingRalan;
-import simrskhanza.DlgPenanggungJawab;
+import simrskhanza.DlgCariCaraBayar;
 
 /**
  *
@@ -46,7 +46,7 @@ public final class ReklasifikasiRalan extends javax.swing.JDialog {
     private validasi Valid=new validasi();
     private PreparedStatement ps,ps2,pspenyakit,psprosedur;
     private ResultSet rs,rs2;
-    private DlgPenanggungJawab penjab=new DlgPenanggungJawab(null,false);
+    private DlgCariCaraBayar penjab=new DlgCariCaraBayar(null,false);
     private double all=0,Laborat=0,Radiologi=0,Obat=0,Ralan_Dokter=0,Ralan_Dokter_paramedis=0,Ralan_Paramedis=0,Tambahan=0,Potongan=0,Registrasi=0,
                     ttlLaborat=0,ttlRadiologi=0,ttlObat=0,ttlRalan_Dokter=0,ttlRalan_Paramedis=0,ttlTambahan=0,ttlPotongan=0,ttlRegistrasi=0,untungrugiinacbg=0,
                    Operasi=0,ttlOperasi=0,kebidanan=0,operasi2=0,tarifincabg=0,ttltarifincabg=0,ttluntungrugiinacbg=0,ttlkebidanan=0;
@@ -430,10 +430,9 @@ public final class ReklasifikasiRalan extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
             //TCari.requestFocus();
         }else if(tabMode.getRowCount()!=0){
-            
-            Sequel.queryu("truncate table temporary2");
+            Sequel.queryu("delete from temporary2 where temp37='"+akses.getalamatip()+"'");
             for(int r=0;r<tabMode.getRowCount();r++){  
-                    Sequel.menyimpan("temporary2","'0','"+
+                    Sequel.menyimpan("temporary2","'"+r+"','"+
                                     tabMode.getValueAt(r,0).toString().replaceAll("'","`") +"','"+
                                     tabMode.getValueAt(r,1).toString().replaceAll("'","`")+"','"+
                                     tabMode.getValueAt(r,2).toString().replaceAll("'","`")+"','"+
@@ -525,7 +524,7 @@ public final class ReklasifikasiRalan extends javax.swing.JDialog {
                                     tabMode.getValueAt(r,89).toString().replaceAll("'","`")+"','"+
                                     tabMode.getValueAt(r,90).toString().replaceAll("'","`")+"','"+
                                     tabMode.getValueAt(r,91).toString().replaceAll("'","`")+"','"+
-                                    tabMode.getValueAt(r,92).toString().replaceAll("'","`")+"','','','','','','','',''","data");
+                                    tabMode.getValueAt(r,92).toString().replaceAll("'","`")+"','','','','','','','','"+akses.getalamatip()+"'","data");
             }
             
             Map<String, Object> param = new HashMap<>();                 
@@ -535,8 +534,8 @@ public final class ReklasifikasiRalan extends javax.swing.JDialog {
             param.put("propinsirs",akses.getpropinsirs());
             param.put("kontakrs",akses.getkontakrs());
             param.put("emailrs",akses.getemailrs());   
-            param.put("logo",Sequel.cariGambar("select logo from setting")); 
-            Valid.MyReport("rptReklasifikasiRalan.jasper","report","::[ Reklasifikasi Ralan ]::",param);
+            param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+            Valid.MyReportqry("rptReklasifikasiRalan.jasper","report","::[ Reklasifikasi Ralan ]::","select * from temporary2 where temporary2.temp100='"+akses.getalamatip()+"' order by temporary2.no",param);
         }
         this.setCursor(Cursor.getDefaultCursor());
 }//GEN-LAST:event_BtnPrintActionPerformed
@@ -1015,7 +1014,8 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                 "operasi.biaya_omloop3+operasi.biayasarpras) from operasi where kategori='-' and no_rawat=?",rs.getString("no_rawat"));
                         ttlkebidanan=ttlkebidanan+kebidanan;
                         tarifincabg=Sequel.cariIsiAngka("select inacbg_grouping_stage1.tarif from inacbg_grouping_stage1 inner join bridging_sep on inacbg_grouping_stage1.no_sep=bridging_sep.no_sep where bridging_sep.no_rawat=?",rs.getString("no_rawat"))+
-                                    Sequel.cariIsiAngka("select inacbg_grouping_stage12.tarif from inacbg_grouping_stage12 inner join inacbg_klaim_baru2 on inacbg_grouping_stage12.no_sep=inacbg_klaim_baru2.no_sep where inacbg_klaim_baru2.no_rawat=?",rs.getString("no_rawat"));
+                                    Sequel.cariIsiAngka("select inacbg_grouping_stage12.tarif from inacbg_grouping_stage12 inner join inacbg_klaim_baru2 on inacbg_grouping_stage12.no_sep=inacbg_klaim_baru2.no_sep where inacbg_klaim_baru2.no_rawat=?",rs.getString("no_rawat"))+
+                                    Sequel.cariIsiAngka("select inacbg_grouping_stage1_internal.tarif from inacbg_grouping_stage1_internal inner join bridging_sep_internal on inacbg_grouping_stage1_internal.no_sep=bridging_sep_internal.no_sep where bridging_sep_internal.no_rawat=?",rs.getString("no_rawat"));
                         if(tarifincabg>0){
                             untungrugiinacbg=tarifincabg-(Operasi+Laborat+Radiologi+Obat+Ralan_Dokter+Ralan_Dokter_paramedis+Ralan_Paramedis+Tambahan+Potongan+Registrasi);
                         }else {
@@ -1040,7 +1040,8 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                         "RJ","Reguler",status,du,ds1,ds2,ds3,ds4,ds5,ds6,ds7,ds8,ds9,ds10,ds11,ds12,ds13,ds14,ds15,ds16,
                         ds17,ds18,ds19,ds20,ds21,ds22,ds23,ds24,ds25,ds26,ds27,ds28,ds29,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,
                         p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21,p22,p23,p24,p25,p26,p27,p28,p29,p30,
-                        Sequel.cariIsi("select code_cbg from inacbg_grouping_stage1 inner join bridging_sep on bridging_sep.no_sep=inacbg_grouping_stage1.no_sep where bridging_sep.no_rawat=?",rs.getString("no_rawat")),
+                        Sequel.cariIsi("select inacbg_grouping_stage1.code_cbg from inacbg_grouping_stage1 inner join bridging_sep on bridging_sep.no_sep=inacbg_grouping_stage1.no_sep where bridging_sep.no_rawat=?",rs.getString("no_rawat"))+" "+
+                        Sequel.cariIsi("select inacbg_grouping_stage1_internal.code_cbg from inacbg_grouping_stage1_internal inner join bridging_sep_internal on bridging_sep_internal.no_sep=inacbg_grouping_stage1_internal.no_sep where bridging_sep_internal.no_rawat=?",rs.getString("no_rawat")),
                         Valid.SetAngka(Operasi+Laborat+Radiologi+Obat+Ralan_Dokter+Ralan_Dokter_paramedis+Ralan_Paramedis+Tambahan+Potongan+Registrasi),
                         Valid.SetAngka(kebidanan),Valid.SetAngka(operasi2),Valid.SetAngka(Ralan_Dokter+Ralan_Dokter_paramedis),
                         0,Valid.SetAngka(Ralan_Paramedis),Valid.SetAngka(Tambahan+Registrasi),0,Valid.SetAngka(Laborat),
